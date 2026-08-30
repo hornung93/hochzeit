@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elisa & Jan — Countdown zur Hochzeit</title>
+<meta name="description" content="Countdown bis zur Hochzeit von Elisa und Jan am 26. September 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-1:#0b1524;
+    --ink-2:#16233b;
+    --gold:#c9a567;
+    --gold-light:#e9d6ac;
+    --blush:#e7c6c0;
+    --cream:#f6f1e7;
+    --cream-dim:#cdc6b8;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 50% 15%, rgba(201,165,103,0.16), transparent 55%),
+      radial-gradient(ellipse at 20% 85%, rgba(231,198,192,0.10), transparent 50%),
+      linear-gradient(180deg, var(--ink-1) 0%, var(--ink-2) 60%, var(--ink-1) 100%);
+    color:var(--cream);
+    font-family:'Jost', sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* ambient floating particles */
+  .particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+  }
+  .particle{
+    position:absolute;
+    bottom:-5%;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--gold-light);
+    opacity:0;
+    filter:blur(0.3px);
+    animation-name:drift;
+    animation-timing-function:ease-in;
+    animation-iteration-count:infinite;
+    box-shadow:0 0 6px 1px rgba(233,214,172,0.5);
+  }
+  @keyframes drift{
+    0%{transform:translateY(0) translateX(0); opacity:0;}
+    8%{opacity:0.85;}
+    92%{opacity:0.5;}
+    100%{transform:translateY(-110vh) translateX(var(--drift-x, 20px)); opacity:0;}
+  }
+
+  .stage{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:640px;
+    padding:8vh 24px;
+    text-align:center;
+  }
+
+  .kicker{
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    color:var(--cream-dim);
+    margin:0 0 18px;
+  }
+
+  .names{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(2.6rem, 9vw, 5rem);
+    line-height:1.05;
+    margin:0;
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.35em;
+    flex-wrap:wrap;
+  }
+
+  .amp{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-light);
+    font-size:0.85em;
+    position:relative;
+    top:-0.03em;
+  }
+
+  .flourish{
+    display:block;
+    width:min(320px, 70%);
+    height:28px;
+    margin:22px auto 0;
+  }
+  .flourish path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.4;
+    stroke-linecap:round;
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+    animation:draw 2.2s ease-out 0.4s forwards;
+  }
+  .flourish circle{
+    fill:var(--gold-light);
+    opacity:0;
+    animation:dotfade 0.6s ease-out 2.1s forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes dotfade{ to{ opacity:1; } }
+
+  .date-line{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.05rem, 2.6vw, 1.35rem);
+    color:var(--blush);
+    margin:26px 0 0;
+    letter-spacing:0.01em;
+  }
+
+  .church-wrap{
+    margin:40px auto 0;
+    max-width:420px;
+    opacity:0;
+    transform:translateY(10px);
+    animation:churchReveal 1.1s ease-out 2.3s forwards;
+  }
+  @keyframes churchReveal{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .church-wrap svg{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .church-wrap .line{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .church-wrap .line-soft{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:0.9;
+    stroke-linecap:round;
+    opacity:0.55;
+  }
+  .church-wrap .fill-dark{
+    fill:var(--ink-2);
+    stroke:var(--gold);
+    stroke-width:1.3;
+  }
+  .church-wrap .tree{
+    fill:none;
+    stroke:var(--blush);
+    stroke-width:1;
+    opacity:0.65;
+  }
+  .venue-caption{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:0.95rem;
+    color:var(--cream-dim);
+    margin:14px 0 0;
+    letter-spacing:0.02em;
+  }
+
+  .countdown{
+    margin:52px 0 8px;
+    display:flex;
+    justify-content:center;
+    gap:clamp(14px, 4vw, 34px);
+    flex-wrap:wrap;
+  }
+
+  .unit{
+    min-width:74px;
+  }
+  .unit .num{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(2.2rem, 7vw, 3.4rem);
+    color:var(--gold-light);
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+    transition:opacity 0.3s ease;
+  }
+  .unit .label{
+    margin-top:8px;
+    font-size:0.72rem;
+    letter-spacing:0.09em;
+    color:var(--cream-dim);
+  }
+  .sep{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(2rem, 6vw, 3rem);
+    color:rgba(233,214,172,0.35);
+    align-self:flex-start;
+    margin-top:2px;
+  }
+
+  .footer-line{
+    margin-top:56px;
+    font-size:0.78rem;
+    letter-spacing:0.04em;
+    color:var(--cream-dim);
+  }
+
+  .married{
+    display:none;
+  }
+  .married.show{
+    display:block;
+  }
+  .married .num{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.6rem, 5vw, 2.4rem);
+    color:var(--gold-light);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .particle{ animation:none; opacity:0; }
+    .flourish path, .flourish circle{ animation:none; stroke-dashoffset:0; opacity:1; }
+    .church-wrap{ animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <main class="stage">
+    <p class="kicker">Wir sagen Ja</p>
+    <h1 class="names">Elisa <span class="amp">&amp;</span> Jan</h1>
+
+    <svg class="flourish" viewBox="0 0 320 28" aria-hidden="true">
+      <path d="M2,14 C60,2 100,26 160,14 C220,2 260,26 318,14" />
+      <circle cx="160" cy="14" r="2.6" />
+    </svg>
+
+    <p class="date-line">26. September 2026 &middot; 14:00 Uhr</p>
+
+    <div class="church-wrap" aria-hidden="true">
+      <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg">
+        <!-- ground -->
+        <line class="line-soft" x1="15" y1="214" x2="405" y2="214" />
+
+        <!-- trees -->
+        <g class="tree">
+          <path d="M56,213 L56,182" />
+          <circle cx="56" cy="163" r="21" />
+          <path d="M300,213 L300,192" />
+          <circle cx="300" cy="177" r="14" />
+        </g>
+
+        <!-- nave roof -->
+        <path class="line" d="M97,140 L97,102 L318,96 L349,140" />
+        <!-- nave walls -->
+        <path class="line" d="M97,140 L97,214 M349,140 L349,214" />
+
+        <!-- apse bay -->
+        <path class="line" d="M349,214 L349,176 L366,160 L383,176 L383,214" />
+        <path class="line-soft" d="M349,176 L366,150 L383,176" />
+
+        <!-- nave windows -->
+        <g class="line-soft">
+          <path d="M140,150 Q140,138 150,138 Q160,138 160,150 L160,192 L140,192 Z" />
+          <path d="M210,150 Q210,138 220,138 Q230,138 230,150 L230,192 L210,192 Z" />
+          <path d="M280,150 Q280,138 290,138 Q300,138 300,150 L300,192 L280,192 Z" />
+        </g>
+
+        <!-- tower body -->
+        <path class="line" d="M28,214 L28,132 L92,132 L92,214" />
+        <!-- tower spire -->
+        <path class="line" d="M28,132 L60,42 L92,132" />
+        <path class="line-soft" d="M60,42 L60,132" />
+        <!-- finial cross -->
+        <path class="line" d="M60,42 L60,26 M53,32 L67,32" />
+        <!-- clock -->
+        <circle class="line" cx="60" cy="160" r="12" />
+        <path class="line-soft" d="M60,160 L60,152 M60,160 L66,163" />
+        <!-- tower window -->
+        <path class="line-soft" d="M53,196 Q53,184 60,184 Q67,184 67,196 L67,214 L53,214 Z" />
+      </svg>
+    </div>
+    <p class="venue-caption">St. Cyriak</p>
+
+    <div id="countdownWrap">
+      <div class="countdown" id="countdown">
+        <div class="unit"><div class="num" id="days">–</div><div class="label">Tage</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="num" id="hours">–</div><div class="label">Stunden</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="num" id="minutes">–</div><div class="label">Minuten</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="num" id="seconds">–</div><div class="label">Sekunden</div></div>
+      </div>
+
+      <div class="married" id="married">
+        <p class="num">Sie haben Ja gesagt. 🤍</p>
+      </div>
+    </div>
+
+    <p class="footer-line">Elisa &amp; Jan</p>
+  </main>
+
+<script>
+  // Wedding date/time in Germany (CEST, UTC+2 in September)
+  const weddingDate = new Date("2026-09-26T14:00:00+02:00");
+
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+  const countdownEl = document.getElementById('countdown');
+  const marriedEl = document.getElementById('married');
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function tick(){
+    const now = new Date();
+    const diff = weddingDate - now;
+
+    if(diff <= 0){
+      countdownEl.style.display = 'none';
+      marriedEl.classList.add('show');
+      clearInterval(timer);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    daysEl.textContent = days;
+    hoursEl.textContent = pad(hours);
+    minutesEl.textContent = pad(minutes);
+    secondsEl.textContent = pad(seconds);
+  }
+
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  // ambient floating particles
+  const container = document.getElementById('particles');
+  const count = window.innerWidth < 600 ? 14 : 24;
+
+  for(let i = 0; i < count; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const left = Math.random() * 100;
+    const duration = 9 + Math.random() * 10;
+    const delay = Math.random() * 14;
+    const driftX = (Math.random() * 60 - 30) + 'px';
+    const size = 3 + Math.random() * 3;
+
+    p.style.left = left + '%';
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.animationDuration = duration + 's';
+    p.style.animationDelay = delay + 's';
+    p.style.setProperty('--drift-x', driftX);
+
+    container.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
