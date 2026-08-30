@@ -229,6 +229,18 @@
     color:var(--cream-dim);
   }
 
+  .thanks{
+    margin-top:18px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1rem, 2.4vw, 1.2rem);
+    color:var(--gold-light);
+    display:none;
+  }
+  .thanks.show{
+    display:block;
+  }
+
   .married{
     display:none;
   }
@@ -326,6 +338,7 @@
     </div>
 
     <p class="footer-line">Elisa &amp; Jan</p>
+    <p class="thanks" id="thanks"></p>
   </main>
 
 <script>
@@ -365,6 +378,16 @@
 
   tick();
   const timer = setInterval(tick, 1000);
+
+  // personalized thank-you from ?name= query parameter
+  const params = new URLSearchParams(window.location.search);
+  const nameParam = params.get('name');
+
+  if(nameParam && nameParam.trim() !== ''){
+    const thanksEl = document.getElementById('thanks');
+    thanksEl.textContent = `Danke ${nameParam.trim()} für deine Rückmeldung`;
+    thanksEl.classList.add('show');
+  }
 
   // ambient floating particles
   const container = document.getElementById('particles');
