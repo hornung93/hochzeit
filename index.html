@@ -10,13 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink-1:#0b1524;
-    --ink-2:#16233b;
-    --gold:#c9a567;
-    --gold-light:#e9d6ac;
-    --blush:#e7c6c0;
-    --cream:#f6f1e7;
-    --cream-dim:#cdc6b8;
+    --ink-1:#f8f5ec;
+    --ink-2:#efe7d4;
+    --gold:#2f4a37;
+    --gold-light:#6f8f74;
+    --blush:#8a7350;
+    --cream:#20301f;
+    --cream-dim:#5b6a5c;
   }
 
   *{box-sizing:border-box;}
@@ -25,8 +25,8 @@
   body{
     min-height:100vh;
     background:
-      radial-gradient(ellipse at 50% 15%, rgba(201,165,103,0.16), transparent 55%),
-      radial-gradient(ellipse at 20% 85%, rgba(231,198,192,0.10), transparent 50%),
+      radial-gradient(ellipse at 50% 15%, rgba(111,143,116,0.16), transparent 55%),
+      radial-gradient(ellipse at 20% 85%, rgba(138,115,80,0.10), transparent 50%),
       linear-gradient(180deg, var(--ink-1) 0%, var(--ink-2) 60%, var(--ink-1) 100%);
     color:var(--cream);
     font-family:'Jost', sans-serif;
@@ -57,7 +57,7 @@
     animation-name:drift;
     animation-timing-function:ease-in;
     animation-iteration-count:infinite;
-    box-shadow:0 0 6px 1px rgba(233,214,172,0.5);
+    box-shadow:0 0 6px 1px rgba(47,74,55,0.35);
   }
   @keyframes drift{
     0%{transform:translateY(0) translateX(0); opacity:0;}
@@ -90,12 +90,21 @@
     font-size:clamp(2.6rem, 9vw, 5rem);
     line-height:1.05;
     margin:0;
-    color:var(--cream);
     display:flex;
     align-items:center;
     justify-content:center;
     gap:0.35em;
     flex-wrap:wrap;
+    background:linear-gradient(100deg, var(--gold) 0%, var(--gold-light) 22%, #d9c896 40%, var(--gold-light) 58%, var(--gold) 80%, var(--gold) 100%);
+    background-size:250% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shimmer 7s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:250% 50%; }
   }
 
   .amp{
@@ -179,6 +188,7 @@
     stroke-width:1;
     opacity:0.65;
   }
+
   .venue-caption{
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
@@ -203,7 +213,7 @@
     font-family:'Cormorant Garamond', serif;
     font-weight:600;
     font-size:clamp(2.2rem, 7vw, 3.4rem);
-    color:var(--gold-light);
+    color:var(--gold);
     line-height:1;
     font-variant-numeric:tabular-nums;
     transition:opacity 0.3s ease;
@@ -217,7 +227,7 @@
   .sep{
     font-family:'Cormorant Garamond', serif;
     font-size:clamp(2rem, 6vw, 3rem);
-    color:rgba(233,214,172,0.35);
+    color:rgba(47,74,55,0.3);
     align-self:flex-start;
     margin-top:2px;
   }
@@ -234,7 +244,7 @@
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
     font-size:clamp(1.4rem, 4vw, 2.1rem);
-    color:var(--gold-light);
+    color:var(--gold);
     display:none;
   }
   .thanks.show{
@@ -251,13 +261,14 @@
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
     font-size:clamp(1.6rem, 5vw, 2.4rem);
-    color:var(--gold-light);
+    color:var(--gold);
   }
 
   @media (prefers-reduced-motion: reduce){
     .particle{ animation:none; opacity:0; }
     .flourish path, .flourish circle{ animation:none; stroke-dashoffset:0; opacity:1; }
     .church-wrap{ animation:none; opacity:1; transform:none; }
+    .names{ animation:none; background-position:50% 50%; }
   }
 </style>
 </head>
@@ -275,29 +286,17 @@
       <circle cx="160" cy="14" r="2.6" />
     </svg>
 
-    <p class="date-line">26. September 2026 &middot; 14:00 Uhr</p>
+    <p class="date-line">26. September 2026 &middot; 13:00 Uhr</p>
 
     <div class="church-wrap" aria-hidden="true">
-      <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 -30 420 260" xmlns="http://www.w3.org/2000/svg">
         <!-- ground -->
-        <line class="line-soft" x1="15" y1="214" x2="405" y2="214" />
+        <line class="line-soft" x1="15" y1="214" x2="380" y2="214" />
 
-        <!-- trees -->
-        <g class="tree">
-          <path d="M56,213 L56,182" />
-          <circle cx="56" cy="163" r="21" />
-          <path d="M300,213 L300,192" />
-          <circle cx="300" cy="177" r="14" />
-        </g>
-
-        <!-- nave roof -->
-        <path class="line" d="M97,140 L97,102 L318,96 L349,140" />
+        <!-- nave roof (level ridge) -->
+        <path class="line" d="M92,140 L92,98 L318,98 L349,140" />
         <!-- nave walls -->
-        <path class="line" d="M97,140 L97,214 M349,140 L349,214" />
-
-        <!-- apse bay -->
-        <path class="line" d="M349,214 L349,176 L366,160 L383,176 L383,214" />
-        <path class="line-soft" d="M349,176 L366,150 L383,176" />
+        <path class="line" d="M92,140 L92,214 M349,140 L349,214" />
 
         <!-- nave windows -->
         <g class="line-soft">
@@ -306,16 +305,16 @@
           <path d="M280,150 Q280,138 290,138 Q300,138 300,150 L300,192 L280,192 Z" />
         </g>
 
-        <!-- tower body -->
-        <path class="line" d="M28,214 L28,132 L92,132 L92,214" />
-        <!-- tower spire -->
-        <path class="line" d="M28,132 L60,42 L92,132" />
-        <path class="line-soft" d="M60,42 L60,132" />
+        <!-- tower body (straight part ~1/3 taller than main building; connected, no gap) -->
+        <path class="line" d="M28,214 L28,59 L92,59 L92,214" />
+        <!-- tower spire (added on top of straight part) -->
+        <path class="line" d="M28,59 L60,15 L92,59" />
+        <path class="line-soft" d="M60,15 L60,59" />
         <!-- finial cross -->
-        <path class="line" d="M60,42 L60,26 M53,32 L67,32" />
-        <!-- clock -->
-        <circle class="line" cx="60" cy="160" r="12" />
-        <path class="line-soft" d="M60,160 L60,152 M60,160 L66,163" />
+        <path class="line" d="M60,15 L60,-1 M53,5 L67,5" />
+        <!-- clock (position unchanged) -->
+        <circle class="line" cx="60" cy="108" r="11" />
+        <path class="line-soft" d="M60,108 L60,101 M60,108 L65,111" />
         <!-- tower window -->
         <path class="line-soft" d="M53,196 Q53,184 60,184 Q67,184 67,196 L67,214 L53,214 Z" />
       </svg>
@@ -343,7 +342,7 @@
 
 <script>
   // Wedding date/time in Germany (CEST, UTC+2 in September)
-  const weddingDate = new Date("2026-09-26T14:00:00+02:00");
+  const weddingDate = new Date("2026-09-26T13:00:00+02:00");
 
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
